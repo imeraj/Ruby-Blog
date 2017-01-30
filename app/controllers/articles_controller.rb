@@ -11,10 +11,15 @@ class ArticlesController < ApplicationController
     
     def show
         @article = Article.find(params[:id])
-        @comments = @article.comments
 
         respond_to do |format|
-          format.json { render json: @article }
+          format.json { render :json => {
+                                  :success => true,
+                                  :article => @article.to_json(:only => [:id, :title, :text], :include => {
+                                                           :comments => {:only => [:id, :commenter, :body]}
+                                  })
+                          }
+                      }
           format.html
         end
     end
@@ -43,7 +48,11 @@ class ArticlesController < ApplicationController
         @articles = Article.all
 
         respond_to do |format|
-            format.json { render json: @articles }
+            format.json { render :json => {
+                                            :success => true,
+                                            :articles => @articles.to_json(:only => [:id, :title, :text])
+                                }
+                        }
             format.html
         end
     end
