@@ -35,6 +35,11 @@ class ArticlesController < ApplicationController
 
     def index
         @articles = Article.all
+
+        respond_to do |format|
+            format.json { render json: @articles }
+            format.html
+        end
     end
 
     def destroy
@@ -46,6 +51,6 @@ class ArticlesController < ApplicationController
 
     private
     def article_params
-        params.require(:article).permit(:title, :text)
+      params.require(:article).permit(:title, :text)
     end
 end
