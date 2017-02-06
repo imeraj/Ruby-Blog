@@ -6,7 +6,7 @@ class APIConstraints
   end
 
   def matches?(request)
-    request.headers[:accept].include?("version=#{@version}")
+    request.headers[:accept].include?("version=#{@version}") || 1
   end
 
 end

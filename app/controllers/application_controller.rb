@@ -19,5 +19,4 @@ class ApplicationController < ActionController::Base
     p @_response.headers
     p @_response_body
   end
-
 end
