@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   def api_version(version, &routes)
     api_constraints = APIConstraints.new(version: version)
-    scope module: "v#{version}", constraints: api_constraints, defaults: { format: 'json' }, &routes
+    scope module: "v#{version}", constraints: api_constraints, defaults: { format: :json }, &routes
   end
 
   api_version(1) do
