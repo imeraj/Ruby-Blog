@@ -12,15 +12,20 @@ class DeltaLogger
   end
 
   def _call(env)
-    start_time = Time.now
-    status, headers, response = @app.call(env)
-    end_time = Time.now
+    @start_time = Time.now
+    @status, @headers, @response = @app.call(env)
+    @end_time = Time.now
 
     Rails.logger.send(@log_level, '*' * 50)
     Rails.logger.send(@log_level, "Request headers: #{ env['PATH_INFO']}")
-    Rails.logger.send(@log_level, "Request delta time: #{(end_time - start_time) * 100} msec")
+    Rails.logger.send(@log_level, "Request delta time: #{(@end_time - @start_time) * 100} msec")
     Rails.logger.send(@log_level, '*' * 50)
 
-    [status, headers, response]
+    [@status, @headers, self]
+  end
+
+  def each(&block)
+    block.call("<!-- Request delta time: #{(@end_time - @start_time)} * 100} msec -->\n")
+    @response.each(&block)
   end
 end
