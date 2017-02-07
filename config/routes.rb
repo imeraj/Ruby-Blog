@@ -3,10 +3,10 @@ require 'api_constraints'
 Rails.application.routes.draw do
   get 'welcome/index'
 
-  def api_version(version, &routes)
-    api_constraints = APIConstraints.new(version: version)
-    scope module: "v#{version}", constraints: api_constraints, defaults: { format: :json }, &routes
-  end
+    def api_version(version, &routes)
+      api_constraints = APIConstraints.new(version: version)
+      scope module: "api/v#{version}", constraints: api_constraints, defaults: { format: :json }, &routes
+    end
 
   api_version(1) do
     resources :articles do

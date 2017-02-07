@@ -1,5 +1,5 @@
-
-    module V2
+module Api
+    module V1
         class ArticlesController < ApplicationController
             http_basic_authenticate_with name: "meraj", password: "secret", except: [:index, :show]
 
@@ -72,3 +72,4 @@
             end
         end
     end
+end

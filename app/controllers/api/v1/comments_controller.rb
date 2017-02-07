@@ -1,5 +1,5 @@
-
-    module V2
+module Api
+    module V1
         class CommentsController < ApplicationController
 
             http_basic_authenticate_with name: "meraj", password: "secret", only: :destroy
@@ -25,4 +25,4 @@
             end
         end
   end
-
+end
