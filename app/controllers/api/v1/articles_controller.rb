@@ -5,7 +5,7 @@ module Api
 
             swagger_path '/articles/:id' do
                 operation :get do
-                    key :description, 'returns a single article'
+                    key :description, 'Returns a single article'
                     key :tags, [
                         'articles'
                     ]
