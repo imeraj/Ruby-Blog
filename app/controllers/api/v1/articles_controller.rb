@@ -25,17 +25,7 @@ module Api
                                 key :type, :boolean
                             end
                             property :article do
-                                key :type, :object
-                                key :required, [:id, :title, :text]
-                                property :id do
-                                    key :type, :integer
-                                end
-                                property :title do
-                                    key :type, :text
-                                end
-                                property :text do
-                                    key :type, :text
-                                end
+                                key :'$ref', :Pet
                                 property :comments do
                                     key :type, :object
                                     key :required, [:id, :commenter, :body]
