@@ -1,6 +1,61 @@
 module Api
     module V1
         class ArticlesController < ApplicationController
+            include Swagger::Blocks
+
+            swagger_path '/articles/:id' do
+                operation :get do
+                    key :description, 'returns a single article'
+                    key :tags, [
+                        'articles'
+                    ]
+                    parameter do
+                        key :name, :id
+                        key :in, :path
+                        key :description, 'ID of article to fetch'
+                        key :required, true
+                        key :type, :integer
+                    end
+                    response 200 do
+                        key :description, 'article response'
+                        schema do
+                            key :type, :object
+                            key :required, [:name, :article]
+                            property :success do
+                                key :type, :boolean
+                            end
+                            property :article do
+                                key :type, :object
+                                key :required, [:id, :title, :text]
+                                property :id do
+                                    key :type, :integer
+                                end
+                                property :title do
+                                    key :type, :text
+                                end
+                                property :text do
+                                    key :type, :text
+                                end
+                                property :comments do
+                                    key :type, :object
+                                    key :required, [:id, :commenter, :body]
+                                    property :id do
+                                        key :type, :integer
+                                    end
+                                    property :commenter do
+                                        key :type, :string
+                                    end
+                                    property :body do
+                                        key :type, :text
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+
+
             http_basic_authenticate_with name: "meraj", password: "secret", except: [:index, :show]
 
             def new
